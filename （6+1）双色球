@@ -1,0 +1,39 @@
+import random
+def nums_pre(nums):
+  #数字处理，小于10的数字添0
+    if nums:
+        if isinstance(nums, list) or isinstance(nums,tuple):
+            return ['0{}'.format(int(item)) if int(item) < 10 else str(int(item)) for item in nums]
+        else:
+            return '0{}'.format(int(nums)) if int(nums) < 10 else str(int(nums))
+    else:
+        return ''
+def gene_ssq(number):
+#随机产生几注双色球（6+1）
+    result = []
+ 
+    for item in range(number):
+        reds = []
+ 
+        # 产生6个红球
+        while len(reds) < 6:
+            # 从1-33中随机取一个数字
+            temp_red_num = random.randint(1, 33)
+            if temp_red_num not in reds:
+                reds.append(temp_red_num)
+ 
+        # 蓝球
+        blue = random.randint(1, 16)
+ 
+        # 红球排序
+        reds.sort()
+ 
+        # 数据预处理
+        reds = nums_pre(reds)
+        blue = nums_pre([blue])[0]
+ 
+        result.append(' '.join(reds) + " + " + blue)
+    return '\n'.join(result)
+
+a=gene_ssq(10)
+print(a)
